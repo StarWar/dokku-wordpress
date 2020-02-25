@@ -1,0 +1,35 @@
+{
+  "require": {
+    "php": "^7.4.0",
+    "mailgun/mailgun-php": "^3.0",
+    "ext-bcmath": "*",
+    "ext-calendar": "*",
+    "ext-curl": "*",
+    "ext-fileinfo": "*",
+    "ext-filter": "*",
+    "ext-gd": "*",
+    "ext-hash": "*",
+    "ext-imagick": "^3.4",
+    "ext-mbstring": "*",
+    "ext-sodium": "*",
+    "ext-xml": "*",
+    "ext-xmlrpc": "*"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "chmod 755 $(find /app -type d)",
+      "chmod 644 $(find /app -type f)",
+      "chmod 440 /app/wp-config.php",
+      "chmod 444 /app/index.php"
+    ]
+  },
+  "extra": {
+    "heroku": {
+      "nginx-includes": [
+        "nginx.conf"
+      ],
+      "document-root": "web",
+      "index-document": "index.php"
+    }
+  }
+}
