@@ -58,6 +58,10 @@ define( 'NONCE_SALT',       'getenv("NONCE_SALT")' );
 
 /**#@-*/
 
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+    $_SERVER['HTTPS'] = 'on';
+}
+
 /**
  * WordPress Database Table prefix.
  *
@@ -79,6 +83,8 @@ $table_prefix = 'wp_';
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
 define( 'WP_DEBUG', false );
+
+define('FS_METHOD', 'direct');
 
 /* That's all, stop editing! Happy publishing. */
 
