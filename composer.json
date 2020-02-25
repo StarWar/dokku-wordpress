@@ -5,6 +5,7 @@
     "ext-bcmath": "*",
     "ext-calendar": "*",
     "ext-curl": "*",
+    "ext-exif": "*",
     "ext-fileinfo": "*",
     "ext-filter": "*",
     "ext-gd": "*",
