@@ -51,6 +51,12 @@ done
 # restart the app after setting the env vars
 dokku ps:restart "$APP_NAME"
 
+# manually fix upload size
+sudo mkdir /home/dokku/"$APP_NAME"/nginx.conf.d/
+echo 'client_max_body_size 100m;' | sudo tee -a /home/dokku/"$APP_NAME"/nginx.conf.d/upload.conf > /dev/null
+sudo chown dokku:dokku /home/dokku/"$APP_NAME"/nginx.conf.d/upload.conf
+sudo service nginx reload
+
 # resources
 # https://github.com/dokku-community/dokku-wordpress
 # https://gist.github.com/bgallagh3r/2853221
