@@ -86,6 +86,8 @@ define( 'WP_DEBUG', false );
 
 define('FS_METHOD', 'direct');
 
+define( 'WP_MEMORY_LIMIT', '256M' );
+
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */
