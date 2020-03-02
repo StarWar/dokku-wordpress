@@ -1,17 +1,12 @@
 #!/bin/bash
+
+# get app name
 echo "Enter the new app name:"
 read APP_NAME
 
-# create the app
-dokku apps:exists "$APP_NAME" || dokku apps:create "$APP_NAME"
-
-# setup the domain
+# get domain info
 echo "Enter the apps domain name:"
 read DOMAIN
-dokku domains:clear "$APP_NAME"
-dokku domains:add "$APP_NAME" "$DOMAIN"
-dokku domains:add "$APP_NAME" www."$DOMAIN"
-dokku domains:remove "$APP_NAME" "$APP_NAME"."$HOSTNAME"
 
 # is this a wordpress app
 echo "Is this a Wordpress app: (y/n)"
@@ -20,6 +15,15 @@ read IFWP
 if [[ ( $IFWP == "y" ) || ( $IFWP == "Y" ) || ( $IFWP == "yes" ) || ( $IFWP == "Yes" ) || ( $IFWP == "YES" ) ]];
 
 then
+    # create the app
+    dokku apps:exists "$APP_NAME" || dokku apps:create "$APP_NAME"
+    
+    # setup the domain
+    dokku domains:clear "$APP_NAME"
+    dokku domains:add "$APP_NAME" "$DOMAIN"
+    dokku domains:add "$APP_NAME" www."$DOMAIN"
+    dokku domains:remove "$APP_NAME" "$APP_NAME"."$HOSTNAME"
+    
     # get directories setup for persistent storage
     sudo mkdir -p /var/lib/dokku/data/storage/"$APP_NAME"/wp-content/uploads
     sudo mkdir -p /var/lib/dokku/data/storage/"$APP_NAME"/wp-content/upgrade
@@ -55,6 +59,9 @@ then
         dokku config:set --no-restart "$APP_NAME" "$i"="$SALT"
     done
     
+    # set some env vars for cleanup script
+    dokku config:set --no-restart "$APP_NAME" isWP=yes hasDB=yes
+    
     # restart the app after setting the env vars
     dokku ps:restart "$APP_NAME"
     
@@ -63,9 +70,6 @@ then
     echo 'client_max_body_size 100m;' | sudo tee -a /home/dokku/"$APP_NAME"/nginx.conf.d/upload.conf > /dev/null
     sudo chown dokku:dokku /home/dokku/"$APP_NAME"/nginx.conf.d/upload.conf
     sudo service nginx reload
-    
-    # set some env vars for cleanup
-    dokku config:set --no-restart "$APP_NAME" isWP=yes hasDB=yes
     
 elif [[ ( $IFWP == "n" ) || ( $IFWP == "N" ) || ( $IFWP == "no" ) || ( $IFWP == "No" ) || ( $IFWP == "NO" ) ]];
 then
@@ -76,6 +80,15 @@ then
     if [[ ( $IFDB == "y" ) || ( $IFDB == "Y" ) || ( $IFDB == "yes" ) || ( $IFDB == "Yes" ) || ( $IFDB == "YES" ) ]];
     
     then
+        # create the app
+        dokku apps:exists "$APP_NAME" || dokku apps:create "$APP_NAME"
+        
+        # setup the domain
+        dokku domains:clear "$APP_NAME"
+        dokku domains:add "$APP_NAME" "$DOMAIN"
+        dokku domains:add "$APP_NAME" www."$DOMAIN"
+        dokku domains:remove "$APP_NAME" "$APP_NAME"."$HOSTNAME"
+        
         # setup database
         dokku mariadb:create "$APP_NAME"-database
         dokku mariadb:link "$APP_NAME"-database "$APP_NAME"
@@ -85,10 +98,28 @@ then
         dokku config:set "$APP_NAME" DB_NAME="$APP_NAME"_database DB_USER=mariadb DB_PASSWORD="$DB_PASSWORD" DB_HOST=dokku-mariadb-"$APP_NAME"-database DB_PORT=3306
         
         # set some env vars for cleanup
-        dokku config:set --no-restart "$APP_NAME" hasDB=yes
+        dokku config:set --no-restart "$APP_NAME" isWP=no hasDB=yes
+        
+        # restart the app after setting the env vars
+        dokku ps:restart "$APP_NAME"
         
     elif [[ ( $IFDB == "n" ) || ( $IFDB == "N" ) || ( $IFDB == "no" ) || ( $IFDB == "No" ) || ( $IFDB == "NO" ) ]];
     then
+        # create the app
+        dokku apps:exists "$APP_NAME" || dokku apps:create "$APP_NAME"
+        
+        # setup the domain
+        dokku domains:clear "$APP_NAME"
+        dokku domains:add "$APP_NAME" "$DOMAIN"
+        dokku domains:add "$APP_NAME" www."$DOMAIN"
+        dokku domains:remove "$APP_NAME" "$APP_NAME"."$HOSTNAME"
+        
+        # set some env vars for cleanup
+        dokku config:set --no-restart "$APP_NAME" isWP=no hasDB=no
+        
+        # restart the app after setting the env vars
+        dokku ps:restart "$APP_NAME"
+        
         echo "Okay, no database."
     fi
 else
