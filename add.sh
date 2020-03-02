@@ -62,14 +62,14 @@ then
     # set some env vars for cleanup script
     dokku config:set --no-restart "$APP_NAME" isWP=yes hasDB=yes
     
-    # restart the app after setting the env vars
-    dokku ps:restart "$APP_NAME"
-    
     # manually fix upload size
     sudo mkdir /home/dokku/"$APP_NAME"/nginx.conf.d/
     echo 'client_max_body_size 100m;' | sudo tee -a /home/dokku/"$APP_NAME"/nginx.conf.d/upload.conf > /dev/null
     sudo chown dokku:dokku /home/dokku/"$APP_NAME"/nginx.conf.d/upload.conf
     sudo service nginx reload
+    
+    # restart the app after all the things
+    dokku ps:restart "$APP_NAME"
     
 elif [[ ( $IFWP == "n" ) || ( $IFWP == "N" ) || ( $IFWP == "no" ) || ( $IFWP == "No" ) || ( $IFWP == "NO" ) ]];
 then
@@ -100,7 +100,13 @@ then
         # set some env vars for cleanup
         dokku config:set --no-restart "$APP_NAME" isWP=no hasDB=yes
         
-        # restart the app after setting the env vars
+        # manually fix upload size
+        sudo mkdir /home/dokku/"$APP_NAME"/nginx.conf.d/
+        echo 'client_max_body_size 100m;' | sudo tee -a /home/dokku/"$APP_NAME"/nginx.conf.d/upload.conf > /dev/null
+        sudo chown dokku:dokku /home/dokku/"$APP_NAME"/nginx.conf.d/upload.conf
+        sudo service nginx reload
+        
+        # restart the app after all the things
         dokku ps:restart "$APP_NAME"
         
     elif [[ ( $IFDB == "n" ) || ( $IFDB == "N" ) || ( $IFDB == "no" ) || ( $IFDB == "No" ) || ( $IFDB == "NO" ) ]];
@@ -117,7 +123,7 @@ then
         # set some env vars for cleanup
         dokku config:set --no-restart "$APP_NAME" isWP=no hasDB=no
         
-        # restart the app after setting the env vars
+        # restart the app after all the things
         dokku ps:restart "$APP_NAME"
         
         echo "Okay, no database."
