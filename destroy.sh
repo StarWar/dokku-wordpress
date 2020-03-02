@@ -13,6 +13,9 @@ hasDB="$(dokku config:get "$APP_NAME" hasDB)"
 if [[ ( $isWP == "yes" ) && ( $hasDB == "yes" ) ]];
 
 then
+    # destroy nginx's upload.conf
+    sudo rm -R /home/dokku/"$APP_NAME"/nginx.conf.d
+    
     # destroy app and database
     dokku --force apps:destroy "$APP_NAME"
     dokku --force mariadb:destroy "$APP_NAME"-database
