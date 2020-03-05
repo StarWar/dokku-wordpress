@@ -1,7 +1,7 @@
 # Dokku Helper Scripts
 
 After creating many many websites on dokku I got tired of the duplication and decided to automate
-
+<!---
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -72,7 +72,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Mikey Pruitt**
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
@@ -85,3 +85,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Hat tip to anyone whose code was used
 * Inspiration
 * etc
+-->
