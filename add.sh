@@ -65,7 +65,7 @@ then
     # manually fix upload size
     sudo mkdir /home/dokku/"$APP_NAME"/nginx.conf.d/
     echo 'client_max_body_size 100m;' | sudo tee -a /home/dokku/"$APP_NAME"/nginx.conf.d/upload.conf > /dev/null
-    sudo chown dokku:dokku /home/dokku/"$APP_NAME"/nginx.conf.d/upload.conf
+    sudo chown -R dokku:dokku /home/dokku/"$APP_NAME"/nginx.conf.d
     sudo service nginx reload
     
     # restart the app after all the things
@@ -92,7 +92,7 @@ then
         # setup database
         dokku mariadb:create "$APP_NAME"-database
         dokku mariadb:link "$APP_NAME"-database "$APP_NAME"
-        # get and set env vars
+        # get and set database env vars
         DATABASE_CONNECTION_STRING="$(dokku mariadb:info "$APP_NAME"-database --dsn)"
         DB_PASSWORD=`echo ${DATABASE_CONNECTION_STRING} | sed 's/mysql:\/\/mariadb:\(.*\)@dokku-mariadb-'"$APP_NAME"'-database:3306\/'"$APP_NAME"'_database/\1/'`
         dokku config:set "$APP_NAME" DB_NAME="$APP_NAME"_database DB_USER=mariadb DB_PASSWORD="$DB_PASSWORD" DB_HOST=dokku-mariadb-"$APP_NAME"-database DB_PORT=3306
@@ -103,7 +103,7 @@ then
         # manually fix upload size
         sudo mkdir /home/dokku/"$APP_NAME"/nginx.conf.d/
         echo 'client_max_body_size 100m;' | sudo tee -a /home/dokku/"$APP_NAME"/nginx.conf.d/upload.conf > /dev/null
-        sudo chown dokku:dokku /home/dokku/"$APP_NAME"/nginx.conf.d/upload.conf
+        sudo chown -R dokku:dokku /home/dokku/"$APP_NAME"/nginx.conf.d
         sudo service nginx reload
         
         # restart the app after all the things
