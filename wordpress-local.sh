@@ -2,11 +2,11 @@
 echo "Enter the new app name:"
 read APP_NAME
 
-echo "What is the web server address:"
+echo "What is the remote web server address:"
 read SERVER_ADDRESS
 
 # make the directory
-mkdir ~/code/greenkangaroo/"$APP_NAME"
+mkdir $(pwd)/"$APP_NAME"
 
 # get wordpress
 cd /Volumes/Macintosh\ HD/Users/Shared/temp
@@ -14,7 +14,7 @@ curl -O https://wordpress.org/latest.tar.gz
 tar xzf latest.tar.gz
 
 # move the files and cleanup
-cp -R /Volumes/Macintosh\ HD/Users/Shared/temp/wordpress/ ~/code/greenkangaroo/"$APP_NAME"
+cp -R /Volumes/Macintosh\ HD/Users/Shared/temp/wordpress/ $(pwd)/"$APP_NAME"
 rm -R wordpress
 rm -R latest.tar.gz
 
