@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Enter the new app name:"
+echo "Enter the app name as it appears on your Dokku server:"
 read APP_NAME
 
 echo "What is the remote web server address:"

@@ -24,6 +24,7 @@ Say what the step will be
 ```
 cd /to/desired/working/directory
 curl -LJO https://raw.githubusercontent.com/mikeydiamonds/dokku-wordpress/master/wordpress-local.sh
+chmod 755 wordpress-local.sh
 ```
 
 And repeat
