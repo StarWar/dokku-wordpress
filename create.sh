@@ -8,10 +8,6 @@ read APP_NAME
 echo "Enter the apps domain name:"
 read DOMAIN
 
-# ssl cert
-echo "Setup an SSL certificate for https://"$DOMAIN" now: (y/n)"
-read SSL
-
 # is this a wordpress app
 echo "Is this a Wordpress app: (y/n)"
 read IFWP
@@ -72,13 +68,6 @@ then
     sudo chown -R dokku:dokku /home/dokku/"$APP_NAME"/nginx.conf.d
     sudo service nginx reload
     
-    # setup ssl cert
-    if [[ ( $SSL == "y" ) || ( $SSL == "Y" ) || ( $SSL == "yes" ) || ( $SSL == "Yes" ) || ( $SSL == "YES" ) ]];
-    
-    then
-        dokku letsencrypt "$APP_NAME"
-    fi
-    
     # restart the app after all the things
     dokku ps:restart "$APP_NAME"
     
@@ -117,13 +106,6 @@ then
         sudo chown -R dokku:dokku /home/dokku/"$APP_NAME"/nginx.conf.d
         sudo service nginx reload
         
-        # setup ssl cert
-        if [[ ( $SSL == "y" ) || ( $SSL == "Y" ) || ( $SSL == "yes" ) || ( $SSL == "Yes" ) || ( $SSL == "YES" ) ]];
-        
-        then
-            dokku letsencrypt "$APP_NAME"
-        fi
-        
         # restart the app after all the things
         dokku ps:restart "$APP_NAME"
         
@@ -140,13 +122,6 @@ then
         
         # set some env vars for cleanup
         dokku config:set --no-restart "$APP_NAME" isWP=no hasDB=no
-        
-        # setup ssl cert
-        if [[ ( $SSL == "y" ) || ( $SSL == "Y" ) || ( $SSL == "yes" ) || ( $SSL == "Yes" ) || ( $SSL == "YES" ) ]];
-        
-        then
-            dokku letsencrypt "$APP_NAME"
-        fi
         
         # restart the app after all the things
         dokku ps:restart "$APP_NAME"
