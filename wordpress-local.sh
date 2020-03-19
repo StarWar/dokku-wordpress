@@ -19,7 +19,7 @@ rm -R wordpress
 rm -R latest.tar.gz
 
 # work with the new files
-cd ~/code/greenkangaroo/"$APP_NAME"
+cd $(pwd)/"$APP_NAME"
 rm -R wp-content
 rm -R wp-config-sample.php
 
@@ -44,5 +44,5 @@ git remote add dokku dokku@"$SERVER_ADDRESS":"$APP_NAME"
 # push to web server
 git push dokku master
 
-# open the files in vs code
-code .
+# open the files in vs code if installed
+command -v code . >/dev/null 2>&1 || { echo >&2 "No VS Code? Shame!"; exit 1; }
