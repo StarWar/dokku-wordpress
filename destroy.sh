@@ -37,10 +37,3 @@ else
 fi
 
 echo $APP_NAME" destroyed."
-
-# resources
-# https://github.com/dokku-community/dokku-wordpress
-# https://gist.github.com/bgallagh3r/2853221
-# https://stackoverflow.com/questions/9300950/using-environment-variables-in-wordpress-wp-config
-# https://unix.stackexchange.com/questions/230673/how-to-generate-a-random-string
-# https://unix.stackexchange.com/questions/45404/why-cant-tr-read-from-dev-urandom-on-osx
