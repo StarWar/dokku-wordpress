@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cde0e5998754a219a22220b410205ac4",
+    "content-hash": "55b0c77fa65c79b3475f806de648a128",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -685,7 +685,7 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v5.0.4",
+            "version": "v5.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
@@ -855,6 +855,7 @@
         "ext-bcmath": "*",
         "ext-calendar": "*",
         "ext-curl": "*",
+        "ext-exif": "*",
         "ext-fileinfo": "*",
         "ext-filter": "*",
         "ext-gd": "*",
@@ -863,8 +864,7 @@
         "ext-mbstring": "*",
         "ext-sodium": "*",
         "ext-xml": "*",
-        "ext-xmlrpc": "*",
-        "ext-exif": "^7.4"
+        "ext-xmlrpc": "*"
     },
     "platform-dev": []
 }
