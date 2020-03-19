@@ -50,7 +50,7 @@ And finally run the bash script and answer the questions:
 Along with the server script, I created a bash script to run locally to pull the latest Wordpress but you can use Dokku with any type of app or website. Just review the [plugin list](http://dokku.viewdocs.io/dokku/community/plugins/).
 
 ```
-cd /to/desired/working/directory
+cd /to/parent/of/desired/website/folder
 curl -LJO https://raw.githubusercontent.com/mikeydiamonds/dokku-wordpress/master/wordpress-local.sh
 chmod 755 wordpress-local.sh
 bash wordpress-local.sh
