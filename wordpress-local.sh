@@ -8,7 +8,7 @@ read SERVER_ADDRESS
 WORKDIR=$(pwd)
 
 # make the directory
-mkdir $(pwd)/"$APP_NAME"
+mkdir "$WORKDIR"/"$APP_NAME"
 
 # get wordpress
 cd /Volumes/Macintosh\ HD/Users/Shared/temp
@@ -48,3 +48,18 @@ git push dokku master
 
 # open the files in vs code if installed
 command -v code . >/dev/null 2>&1 || { echo >&2 "No VS Code? Shame!"; exit 1; }
+
+# future - add this snippet to functions.php
+
+# /**
+#  * Stop System Update emails
+# */
+
+# add_filter( 'auto_core_update_send_email', 'wpb_stop_auto_update_emails', 10, 4 );
+
+# function wpb_stop_update_emails( $send, $type, $core_update, $result ) {
+# if ( ! empty( $type ) && $type == 'success' ) {
+# return false;
+# }
+# return true;
+# }
