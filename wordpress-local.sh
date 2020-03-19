@@ -5,6 +5,8 @@ read APP_NAME
 echo "What is the remote web server address:"
 read SERVER_ADDRESS
 
+WORKDIR=$(pwd)
+
 # make the directory
 mkdir $(pwd)/"$APP_NAME"
 
@@ -14,12 +16,12 @@ curl -O https://wordpress.org/latest.tar.gz
 tar xzf latest.tar.gz
 
 # move the files and cleanup
-cp -R /Volumes/Macintosh\ HD/Users/Shared/temp/wordpress/ $(pwd)/"$APP_NAME"
+cp -R /Volumes/Macintosh\ HD/Users/Shared/temp/wordpress/ "$WORKDIR"/"$APP_NAME"
 rm -R wordpress
 rm -R latest.tar.gz
 
 # work with the new files
-cd $(pwd)/"$APP_NAME"
+cd "$WORKDIR"/"$APP_NAME"
 rm -R wp-content
 rm -R wp-config-sample.php
 
